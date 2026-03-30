@@ -28,13 +28,13 @@ Assurez-vous d’avoir installé :
 
 ## 🔹 Structure du projet
 
-├── Dockerfile
-├── docker-compose.yml
-├── Makefile
-├── package.json
-├── src/
-│ └── index.js
-└── README.md
+- ├── Dockerfile
+- ├── docker-compose.yml
+- ├── Makefile
+- ├── package.json
+- ├── src/
+- │ └── index.js
+- └── README.md
 
 
 ## Description des fichiers
@@ -80,16 +80,16 @@ make prune
 ```
 #### Supprime :
 
-les containers arrêtés
-les images inutilisées
-les volumes orphelins
+- les containers arrêtés
+- les images inutilisées
+- les volumes orphelins
 
 ### 6. Rebuild complet
-make re
-Stoppe les containers
-Supprime les volumes
-Rebuild l’image
-Relance l’application
+- make re
+- Stoppe les containers
+- Supprime les volumes
+- Rebuild l’image
+- Relance l’application
 
 
 ## Accès à l’API
@@ -98,49 +98,49 @@ Relance l’application
 
 #### Le docker-compose.yml mappe :
 
-3000:3000
-Exemples de routes
-Route racine
-GET http://localhost:3000/
+- 3000:3000
+- Exemples de routes
+- Route racine
+- GET http://localhost:3000/
 
 #### Réponse :
 
-"Hello from Coucou API!"
-Route API users
-GET http://localhost:3000/api/users
+- "Hello from Coucou API!"
+- Route API users
+- GET http://localhost:3000/api/users
 
 #### Réponse :
 
-[
-  { "id": 1, "name": "Alice" },
-  { "id": 2, "name": "Bob" }
-]
+- [
+-   { "id": 1, "name": "Alice" },
+-   { "id": 2, "name": "Bob" }
+- ]
 
 ## Dockerfile non-root multi-stage
 
 ### Exemple utilisé dans le projet :
 
 #### Build stage
-FROM node:20-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
+- FROM node:20-alpine AS builder
+- WORKDIR /app
+- COPY package*.json ./
+- RUN npm ci --only=production
 
 #### Production stage
-FROM node:20-alpine
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-WORKDIR /app
-COPY --from=builder /app/node_modules ./node_modules
-COPY src/ ./src/
-USER appuser
-EXPOSE 3000
-CMD ["node", "src/index.js"]
+- FROM node:20-alpine
+- RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+- WORKDIR /app
+- COPY --from=builder /app/node_modules ./node_modules
+- COPY src/ ./src/
+- USER appuser
+- EXPOSE 3000
+- CMD ["node", "src/index.js"]
 
 
 ## ✔️ Bonnes pratiques appliquées
-Multi-stage build pour réduire la taille de l’image
-Utilisation d’un utilisateur non-root pour la sécurité
-Installation propre des dépendances avec npm ci
+- Multi-stage build pour réduire la taille de l’image
+- Utilisation d’un utilisateur non-root pour la sécurité
+- Installation propre des dépendances avec npm ci
 
 ### Live Reload avec Nodemon
 
@@ -153,17 +153,17 @@ npm run dev
 
 Des hooks sont configurés pour :
 
-Vérifier le code avant commit
-Assurer la qualité du dépôt
-Lancer lint / tests (si configurés)
+- Vérifier le code avant commit
+- Assurer la qualité du dépôt
+- Lancer lint / tests (si configurés)
 
 ## Commandes Docker utiles
-docker ps                 # Voir les containers actifs
-docker logs <id>          # Voir les logs d’un container
-docker exec -it <id> sh   # Accéder au shell du container
+- cdocker ps                 # Voir les containers actifs
+- cdocker logs <id>          # Voir les logs d’un container
+- cdocker exec -it <id> sh   # Accéder au shell du container
 
 ### Notes pour les reviewers
-✅ Dockerfile conforme (multi-stage + non-root)
-✅ Makefile simplifie la gestion Docker
-✅ Hooks pre-commit actifs
-✅ Projet propre et prêt pour production
+- ✅ Dockerfile conforme (multi-stage + non-root)
+- ✅ Makefile simplifie la gestion Docker
+- ✅ Hooks pre-commit actifs
+- ✅ Projet propre et prêt pour production
