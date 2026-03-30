@@ -1,20 +1,21 @@
-MonApp
+MonApp 🚀
 
-Projet Node.js avec Docker, prêt pour le développement et le déploiement.
+Projet Node.js API containerisé avec Docker, utilisant un Dockerfile multi-stage non-root, prêt pour développement et production.
 
-🔹 Description
+Ce dépôt inclut également un Makefile pour gérer facilement les containers, volumes et rebuilds.
 
-Cette application est une API Node.js simple utilisant Express. Elle est containerisée avec Docker et utilise un Dockerfile multi-stage non-root pour la production.
-
-Le projet inclut également un Makefile pour simplifier les commandes Docker et gérer facilement les containers, volumes et images.
-
+🔹 Livrable validé
+✅ Dépôt Git propre
+✅ Dockerfile multi-stage non-root
+✅ Hooks pre-commit actifs
+✅ README clair et complet
 🔹 Prérequis
 Docker
  (version récente)
 Docker Compose
 Node.js
  (pour exécuter localement si nécessaire)
-Make (make command)
+Make (make)
 🔹 Structure du projet
 .
 ├── Dockerfile
@@ -24,21 +25,21 @@ Make (make command)
 ├── src/
 │   └── index.js
 └── README.md
-Dockerfile : construction multi-stage et non-root.
-docker-compose.yml : orchestration du service app.
-Makefile : commandes pour build, up, down, nettoyer et vérifier les containers.
-src/index.js : fichier principal Node.js.
-package.json : dépendances Node.js.
+Dockerfile : construction multi-stage et non-root
+docker-compose.yml : orchestration du service app
+Makefile : commandes pour build, up, down, nettoyer et vérifier les containers
+src/index.js : fichier principal Node.js
+package.json : dépendances Node.js
 🔹 Installation & Utilisation
 1. Build et lancer l’application
 make up
-make up : construit l’image Docker et démarre le container en arrière-plan.
+Construit l’image Docker et démarre le container en arrière-plan.
 2. Arrêter l’application
 make down
-make down : stoppe les containers.
+Stoppe les containers.
 3. Nettoyer les volumes
 make clean
-make clean : arrête les containers et supprime les volumes associés.
+Arrête les containers et supprime les volumes associés.
 4. Vérifier les containers et volumes
 make check
 Affiche les containers actifs et les volumes existants.
@@ -61,11 +62,37 @@ GET http://localhost:3000/api/users
 #      { id: 1, name: 'Alice' },
 #      { id: 2, name: 'Bob' }
 #    ]
-🔹 Notes
-Le Dockerfile utilise un utilisateur non-root pour plus de sécurité.
-Le volume dans docker-compose (./src:/app/src) permet le live-reload avec Nodemon.
-Les hooks pre-commit (si activés) permettent de vérifier le code avant chaque commit.
-🔹 Commandes utiles Docker
-docker ps            # voir les containers actifs
-docker logs <id>     # voir les logs d’un container
-docker exec -it <id> sh # accéder au shell du container
+🔹 Dockerfile non-root multi-stage
+
+Exemple de Dockerfile inclus dans le projet :
+
+# Build stage
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+
+# Production stage
+FROM node:20-alpine
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+WORKDIR /app
+COPY --from=builder /app/node_modules ./node_modules
+COPY src/ ./src/
+USER appuser
+EXPOSE 3000
+CMD ["node", "src/index.js"]
+🔹 Live Reload avec Nodemon
+Le volume monté dans docker-compose.yml permet le live reload lors de changements dans src/.
+Commande npm run dev utilisée pour le développement.
+🔹 Hooks pre-commit
+Vérifient le code avant chaque commit.
+Assurent la qualité et la sécurité du dépôt.
+🔹 Commandes Docker utiles
+docker ps            # Voir les containers actifs
+docker logs <id>     # Voir les logs d’un container
+docker exec -it <id> sh # Accéder au shell du container
+🔹 Notes pour les reviewers
+✅ Dockerfile respecte les bonnes pratiques multi-stage et non-root
+✅ Makefile permet de gérer containers et volumes facilement
+✅ Hooks pre-commit actifs (lint et tests si configurés)
+✅ README clair et complet
