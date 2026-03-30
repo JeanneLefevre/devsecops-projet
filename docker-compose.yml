@@ -7,4 +7,5 @@ services:
       - "3000:3000"
     volumes:
       - .:/app   # ton code local est monté dans /app du container
+      - /app/node_modules
     command: npm run dev  # utilise nodemon pour reload automatique

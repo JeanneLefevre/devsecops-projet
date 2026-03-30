@@ -17,7 +17,6 @@ app.get('/api/users', (req, res) => {
     { id: 1, name: 'Alice' },
     { id: 2, name: 'Bob' }
   ]);
-  res.send('Hello', res.name)
 });
 
 // Lancer le serveur
