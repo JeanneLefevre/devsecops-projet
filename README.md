@@ -37,7 +37,7 @@ Assurez-vous d’avoir installé :
 └── README.md
 
 
-### Description des fichiers
+## Description des fichiers
 
 - **Dockerfile** : construction multi-stage et non-root
 - **docker-compose.yml** : orchestration du service app
@@ -47,44 +47,44 @@ Assurez-vous d’avoir installé :
 
 ---
 
-### 🔹 Installation & Utilisation
+## 🔹 Installation & Utilisation
 
-## 1. Build et lancer l’application
+### 1. Build et lancer l’application
 
 ```bash
 make up
 ```
-# Construit l’image Docker et démarre le container en arrière-plan.
+#### Construit l’image Docker et démarre le container en arrière-plan.
 
-## 2. Arrêter l’application
+### 2. Arrêter l’application
 ```bash
 make down
 ```
-# Stoppe les containers.
+#### Stoppe les containers.
 
-## 3. Nettoyer les volumes
+### 3. Nettoyer les volumes
 ```bash
 make clean
 ```
-# Arrête les containers et supprime les volumes associés.
+#### Arrête les containers et supprime les volumes associés.
 
-## 4. Vérifier les containers et volumes
+### 4. Vérifier les containers et volumes
 ```bash
 make check
 ```
-# Affiche les containers actifs et les volumes existants.
+#### Affiche les containers actifs et les volumes existants.
 
-## 5. Supprimer les ressources inutilisées
+### 5. Supprimer les ressources inutilisées
 ```bash
 make prune
 ```
-# Supprime :
+#### Supprime :
 
 les containers arrêtés
 les images inutilisées
 les volumes orphelins
 
-## 6. Rebuild complet
+### 6. Rebuild complet
 make re
 Stoppe les containers
 Supprime les volumes
@@ -92,41 +92,41 @@ Rebuild l’image
 Relance l’application
 
 
-### Accès à l’API
+## Accès à l’API
 
-## L’application écoute sur le port 3000.
+### L’application écoute sur le port 3000.
 
-# Le docker-compose.yml mappe :
+#### Le docker-compose.yml mappe :
 
 3000:3000
 Exemples de routes
 Route racine
 GET http://localhost:3000/
 
-# Réponse :
+#### Réponse :
 
 "Hello from Coucou API!"
 Route API users
 GET http://localhost:3000/api/users
 
-# Réponse :
+#### Réponse :
 
 [
   { "id": 1, "name": "Alice" },
   { "id": 2, "name": "Bob" }
 ]
 
-### Dockerfile non-root multi-stage
+## Dockerfile non-root multi-stage
 
-## Exemple utilisé dans le projet :
+### Exemple utilisé dans le projet :
 
-# Build stage
+#### Build stage
 FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production
 
-# Production stage
+#### Production stage
 FROM node:20-alpine
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 WORKDIR /app
@@ -137,19 +137,19 @@ EXPOSE 3000
 CMD ["node", "src/index.js"]
 
 
-### ✔️ Bonnes pratiques appliquées
+## ✔️ Bonnes pratiques appliquées
 Multi-stage build pour réduire la taille de l’image
 Utilisation d’un utilisateur non-root pour la sécurité
 Installation propre des dépendances avec npm ci
 
-## Live Reload avec Nodemon
+### Live Reload avec Nodemon
 
 Le volume monté dans docker-compose.yml permet le live reload lors des modifications dans src/.
 
 Commande utilisée en développement :
 npm run dev
 
-## Hooks pre-commit
+### Hooks pre-commit
 
 Des hooks sont configurés pour :
 
@@ -157,7 +157,7 @@ Vérifier le code avant commit
 Assurer la qualité du dépôt
 Lancer lint / tests (si configurés)
 
-### Commandes Docker utiles
+## Commandes Docker utiles
 docker ps                 # Voir les containers actifs
 docker logs <id>          # Voir les logs d’un container
 docker exec -it <id> sh   # Accéder au shell du container
