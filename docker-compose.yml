@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  app:
+    image: dev-api
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app   # ton code local est monté dans /app du container
+    command: npm run dev  # utilise nodemon pour reload automatique
