@@ -1,0 +1,12 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app            # monte ton code source
+      - node_modules:/app/node_modules
+    command: nodemon src/index.js  # reload automatique
+
+volumes:
+  node_modules:

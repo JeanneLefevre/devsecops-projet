@@ -8,7 +8,7 @@ app.use(express.json());
 
 // Route racine
 app.get('/', (req, res) => {
-  res.send('Hello from Coucou API!');
+  res.send('Ah si super !');
 });
 
 // Exemple de route API

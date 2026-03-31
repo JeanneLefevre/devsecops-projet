@@ -1,0 +1,42 @@
+# -----------------------
+# Node.js
+# -----------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.pnpm-debug.log*
+.env
+.env.*
+/dist
+/build
+/coverage
+
+# -----------------------
+# Docker
+# -----------------------
+docker-compose.override.yml
+docker-compose.*.yml
+**/Dockerfile.*.swp
+*.log
+*.tmp
+tmp/
+*.pid
+*.sock
+
+# -----------------------
+# IDEs / editors
+# -----------------------
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.DS_Store
+
+# -----------------------
+# Git / Pre-commit
+# -----------------------
+.pre-commit-config.yaml
+.pre-commit/

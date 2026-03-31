@@ -8,4 +8,4 @@ services:
     volumes:
       - .:/app   # ton code local est monté dans /app du container
       - /app/node_modules
-    command: npm run dev  # utilise nodemon pour reload automatique
+    command: node src/index.js  # utilise nodemon pour reload automatique

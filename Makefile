@@ -3,6 +3,7 @@ NAME = monapp
 COMPOSE = docker compose
 
 up:
+	$(COMPOSE) -f docker-compose.yml -f docker-compose.dev.yml up
 	$(COMPOSE) up -d --build
 
 down:
