@@ -2,7 +2,7 @@
   "name": "devsecorps-projet",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "directories": {
     "doc": "docs",
     "test": "tests"
@@ -12,12 +12,14 @@
     "dev": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["express", "docker", "postgres", "api", "devprod"],
+  "author": "Jealefev",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "pg": "^8.20.0",
+    "dotenv": "^16.3.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"

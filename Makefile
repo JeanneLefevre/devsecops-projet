@@ -1,10 +1,16 @@
-NAME = monapp
-
 COMPOSE = docker compose
+APP_SERVICE = app
+DB_SERVICE = db
+ENV_DEV = .env.dev
+ENV_PROD = .env.prod
 
-up:
-	$(COMPOSE) -f docker-compose.yml -f docker-compose.dev.yml up
-	$(COMPOSE) up -d --build
+# Lancer tout en mode DEV (API + DB)
+dev:
+	$(COMPOSE) --env-file $(ENV_DEV) up -d --build
+
+# Lancer tout en mode PROD (API + DB)
+prod:
+	$(COMPOSE) --env-file $(ENV_PROD) up -d --build
 
 down:
 	$(COMPOSE) down
@@ -12,14 +18,21 @@ down:
 clean:
 	$(COMPOSE) down -v
 
-check:
-	docker ps
-	docker volume ls
-
 prune:
 	docker system prune -af
 	docker volume prune -f
 
-re : clean up
+logs:
+	$(COMPOSE) logs -f $(APP_SERVICE)
 
-all : ull
+exec:
+	$(COMPOSE) exec $(APP_SERVICE) sh
+
+check:
+	docker ps
+	docker volume ls
+
+rebuild: clean dev
+
+up: dev
+re: rebuild

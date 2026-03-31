@@ -1,11 +1,23 @@
-version: '3.9'
 services:
   app:
-    image: dev-api
     build: .
     ports:
-      - "3000:3000"
+      - "${PORT}:3000"
     volumes:
-      - .:/app   # ton code local est monté dans /app du container
-      - /app/node_modules
-    command: node src/index.js  # utilise nodemon pour reload automatique
+      - .:/app
+    env_file:
+      - .env.dev
+    depends_on:
+      - db
+    command: npm run dev
+
+  db:
+    image: postgres:15-alpine
+    restart: always
+    env_file:
+      - .env.dev
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

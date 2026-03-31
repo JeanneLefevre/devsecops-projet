@@ -1,5 +1,4 @@
 repos:
-  # Détection de secrets
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.4.0
     hooks:
